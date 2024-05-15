@@ -1,8 +1,9 @@
+# set GPIO and setwarnings
 import RPi.GPIO as GPIO
 import time
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-
+# set all the pins and varibles to outputs and inputs
 button_pin = 17
 led_pin = 27
 led_pin1 = 22
@@ -24,10 +25,10 @@ GPIO.setup(button_pin, GPIO.IN)
 GPIO.setup(led_pin, GPIO.OUT)
 GPIO.setup(led_pin1, GPIO.OUT)
 GPIO.setup(led_pin2, GPIO.OUT)
-
+# set the counter to 0s
 led_number = 0
 led_number2 = 0
-
+# functions for the LEDS
 def turn_on_led():
   global led_number
   GPIO.output(pins[led_number], GPIO.HIGH)
@@ -36,16 +37,16 @@ def turn_on_led():
 def turn_off_led():
   for pin in pins:
    GPIO.output(pin, GPIO.LOW)
-
+# on
 def turn_on_led2():
   global led_number2
   GPIO.output(pins2[led_number2], GPIO.HIGH)
   led_number2 += 1
-
+# off 
 def turn_off_led2():
   for pin2 in pins2:
    GPIO.output(pin2, GPIO.LOW)
-
+# make a loop so that the leds turn on and off
 try:
    while True:
     if GPIO.input(button_pin) == GPIO.HIGH:
@@ -62,7 +63,7 @@ try:
       if led_number2 == len(pins2):
        turn_off_led2()
        led_number2 = 0
-
+# cleanup
 except KeyboardInterrupt:
   GPIO.cleanup()
 
